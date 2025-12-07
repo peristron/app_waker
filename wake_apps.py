@@ -1,7 +1,9 @@
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-# Cleaned URLs (removed trailing slashes)
 app_urls = [
     "https://csvexpl0rer.streamlit.app",
     "https://csvsplittertool.streamlit.app",
@@ -18,36 +20,46 @@ app_urls = [
     "https://wordcloudandsentimentanalyzer2.streamlit.app"
 ]
 
-def wake_up():
-    print(f"⏰ Waking up {len(app_urls)} apps...")
+def get_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run in background
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
     
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-    }
+    # Initialize Chrome Driver
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+    return driver
 
+def wake_up():
+    print(f"⏰ Waking up {len(app_urls)} apps using Headless Chrome...")
+    
+    driver = get_driver()
+    
     for url in app_urls:
         try:
-            print(f"🚀 Pinging {url}...")
-            # FIRST HIT: Triggers the boot process
-            requests.get(url, headers=headers, timeout=5)
-        except:
-            # We expect a timeout or error here if it's deep sleeping. That's fine.
-            pass
-        
-        # Wait for the container to spin up
-        time.sleep(5)
-        
-        try:
-            # SECOND HIT: Establishes connection
-            response = requests.get(url, headers=headers, timeout=30)
-            if response.status_code == 200:
-                print(f"✅ Awake: {url}")
-            else:
-                print(f"⚠️ Status {response.status_code}: {url}")
-        except Exception as e:
-            print(f"❌ Failed: {url} - {e}")
+            print(f"🚀 Visiting {url}...")
+            driver.get(url)
             
-        time.sleep(1)
+            # CRITICAL: Wait for JavaScript to execute and WebSocket to connect
+            # 10 seconds is usually enough for Streamlit to acknowledge the user
+            time.sleep(15) 
+            
+            # Optional: Check if the title indicates it loaded
+            print(f"✅ Visited: {driver.title}")
+            
+        except Exception as e:
+            print(f"❌ Error on {url}: {e}")
+            # If driver crashes, try to restart it
+            try:
+                driver.quit()
+                driver = get_driver()
+            except:
+                pass
+
+    print("🏁 Done. Closing browser.")
+    driver.quit()
 
 if __name__ == "__main__":
     wake_up()

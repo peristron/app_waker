@@ -1,0 +1,28 @@
+name: Wake Streamlit Apps
+
+on:
+  schedule:
+    # runs at 08:00 UTC every day. 
+    # streamlit sleeps after ~7 days, but daily checks are safer.
+    - cron: '0 8 * * *'
+  # allows for running this workflow manually from the Actions tab for testing
+  workflow_dispatch:
+
+jobs:
+  wake_apps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run wake script
+        run: python wake_apps.py

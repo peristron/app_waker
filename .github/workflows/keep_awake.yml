@@ -2,10 +2,8 @@ name: Wake Streamlit Apps
 
 on:
   schedule:
-    # runs at 08:00 UTC every day. 
-    # streamlit sleeps after ~7 days, but daily checks are safer.
-    - cron: '0 8 * * *'
-  # allows for running this workflow manually from the Actions tab for testing
+    # Runs every 4 hours (00:00, 04:00, 08:00, 12:00, etc.)
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 jobs:

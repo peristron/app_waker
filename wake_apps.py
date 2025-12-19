@@ -18,7 +18,8 @@ app_urls = [
     "https://os-scorm-inspector.streamlit.app",
     "https://simplechartgenerator.streamlit.app",
     "https://wordcloudandsentimentanalyzer.streamlit.app",
-    "https://wordcloudandsentimentanalyzer2.streamlit.app"
+    "https://wordcloudandsentimentanalyzer2.streamlit.app",
+    "https://datasetexpl0rerupgraded.streamlit.app"
 ]
 
 def get_driver():

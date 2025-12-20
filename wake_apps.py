@@ -19,7 +19,8 @@ app_urls = [
     "https://simplechartgenerator.streamlit.app",
     "https://wordcloudandsentimentanalyzer.streamlit.app",
     "https://wordcloudandsentimentanalyzer2.streamlit.app",
-    "https://datasetexpl0rerupgraded.streamlit.app"
+    "https://datasetexpl0rerupgraded.streamlit.app",
+    "https://w0rdcl0udharvesterv4.streamlit.app"
 ]
 
 def get_driver():

@@ -21,7 +21,8 @@ app_urls = [
     "https://wordcloudandsentimentanalyzer2.streamlit.app",
     "https://datasetexpl0rerupgraded.streamlit.app",
     "https://w0rdcl0udharvesterv4.streamlit.app",
-    "https://signalfoundry.streamlit.app"
+    "https://signalfoundry.streamlit.app",
+    "https://lineageanddependencieschecker.streamlit.app"
 ]
 
 def get_driver():

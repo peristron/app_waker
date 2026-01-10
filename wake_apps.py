@@ -22,7 +22,8 @@ app_urls = [
     "https://datasetexpl0rerupgraded.streamlit.app",
     "https://w0rdcl0udharvesterv4.streamlit.app",
     "https://signalfoundry.streamlit.app",
-    "https://lineageanddependencieschecker.streamlit.app"
+    "https://lineageanddependencieschecker.streamlit.app",
+    "https://datasetsunifiedexplorer.streamlit.app"
 ]
 
 def get_driver():

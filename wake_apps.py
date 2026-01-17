@@ -24,7 +24,8 @@ app_urls = [
     "https://signalfoundry.streamlit.app",
     "https://lineageanddependencieschecker.streamlit.app",
     "https://datasetsunifiedexplorer.streamlit.app",
-    "https://dataunifiedexplorer.streamlit.app"
+    "https://dataunifiedexplorer.streamlit.app",
+    "https://refreshcsvcomparisontool.streamlit.app"
 ]
 
 def get_driver():

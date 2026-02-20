@@ -27,7 +27,8 @@ app_urls = [
     "https://dataunifiedexplorer.streamlit.app",
     "https://refreshcsvcomparisontool.streamlit.app",
     "https://multillmchats.streamlit.app",
-    "https://geospatialimpactmonitor.streamlit.app"
+    "https://geospatialimpactmonitor.streamlit.app",
+    "https://d2l-api-assistant.streamlit.app"
 ]
 
 def get_driver():

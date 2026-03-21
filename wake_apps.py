@@ -29,7 +29,8 @@ app_urls = [
     "https://multillmchats.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
     "https://d2l-api-assistant.streamlit.app",
-    "https://jbsrch-app.streamlit.app"
+    "https://jbsrch-app.streamlit.app",
+    "https://refact0redp0dcaster-2.streamlit.app"
 ]
 
 def get_driver():

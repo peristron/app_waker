@@ -4,19 +4,23 @@ on:
   schedule:
     # Run every 4 hours
     - cron: '0 */4 * * *'
-  workflow_dispatch:jobs:
+  workflow_dispatch:
+
+jobs:
   wake_apps:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  - name: Set up Python
-    uses: actions/setup-python@v4
-    with:
-      python-version: '3.9'
+        uses: actions/checkout@v3
 
-  - name: Install dependencies
-    run: |
-      pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-  - name: Run wake script
-    run: python wake_apps.py
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run wake script
+        run: python wake_apps.py

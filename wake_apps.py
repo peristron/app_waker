@@ -30,8 +30,10 @@ import randomapp_urls = [
 "https://jbsrch-app.streamlit.app",
 "https://refact0redp0dcaster-2.streamlit.app",
 "https://storytellerpoc.streamlit.app",
-"https://scormifier.streamlit.app
-]def get_driver():
+"https://scormifier.streamlit.app"   
+]
+
+def get_driver():
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")

@@ -1,20 +1,31 @@
-name: Wake Streamlit Appson:
+name: Wake Streamlit Apps
+
+on:
   schedule:
     # Run every 4 hours
     - cron: '0 */4 * * *'
-  workflow_dispatch:jobs:
+  workflow_dispatch:
+
+jobs:
   wake_apps:
     runs-on: ubuntu-latest
+    
+    # Silence the Node.js 20 deprecation warning (opt into Node 24 early)
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  - name: Set up Python
-    uses: actions/setup-python@v4
-    with:
-      python-version: '3.9'
+        uses: actions/checkout@v4
 
-  - name: Install dependencies
-    run: |
-      pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-  - name: Run wake script
-    run: python wake_apps.py
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run wake script
+        run: python wake_apps.py

@@ -37,44 +37,42 @@ app_urls = [
 
 def get_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless=new")        # modern headless (required for newer Chrome)
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     
-    # STEALTH: Masquerade as a real Windows PC running Chrome
-    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    # Stealth: pretend to be a real Windows Chrome user
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
     chrome_options.add_argument(f'user-agent={user_agent}')
+    
+    # Tell Selenium where Chromium is installed on the runner
+    chrome_options.binary_location = "/usr/bin/chromium-browser"
     
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
 def wake_up():
-    # --- STEALTH: RANDOM START TIME ---
-    # Sleep between 10 seconds and 600 seconds (10 minutes)
-    # This prevents the logs from showing an exact hourly pattern
+    # Random start delay so the schedule doesn't look robotic
     start_delay = random.uniform(10, 600)
     print(f"😴 Random start delay: Sleeping for {start_delay:.1f} seconds...")
     time.sleep(start_delay)
 
-    # --- STEALTH: RANDOM ORDER ---
+    # Random order of apps
     random.shuffle(app_urls)
     
-    print(f"⏰ Waking up {len(app_urls)} apps using Headless Chrome...")
-    
+    print(f"⏰ Waking up {len(app_urls)} Streamlit apps using Headless Chromium...")
+
     driver = get_driver()
-    
+
     for i, url in enumerate(app_urls):
         try:
             print(f"[{i+1}/{len(app_urls)}] 🚀 Visiting {url}...")
             driver.get(url)
-            
-            # Wait for Streamlit to boot
-            time.sleep(15) 
-            
+            time.sleep(15)  # Give Streamlit enough time to fully boot
             print(f"   ✅ Visited. Page Title: {driver.title}")
-            
         except Exception as e:
             print(f"   ❌ Error on {url}: {e}")
             try:
@@ -83,7 +81,7 @@ def wake_up():
             except:
                 pass
         
-        # STEALTH: Random tiny pause between apps
+        # Random pause between apps
         time.sleep(random.uniform(2, 5))
 
     print("🏁 Done. Closing browser.")

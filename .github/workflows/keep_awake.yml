@@ -1,4 +1,6 @@
-name: Wake Streamlit Appson:
+name: Wake Streamlit Apps
+
+on:
   schedule:
     # Run every 4 hours
     - cron: '0 */4 * * *'

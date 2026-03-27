@@ -31,7 +31,8 @@ app_urls = [
     "https://d2l-api-assistant.streamlit.app",
     "https://jbsrch-app.streamlit.app",
     "https://refact0redp0dcaster-2.streamlit.app",
-    "https://storytellerpoc.streamlit.app"
+    "https://storytellerpoc.streamlit.app",
+    "https://scormifier.streamlit.app"
 ]
 
 def get_driver():

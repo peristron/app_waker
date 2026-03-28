@@ -1,17 +1,14 @@
-name: Wake Streamlit Apps
+name: Wake Important Streamlit Apps
 
 on:
   schedule:
-    # Every 2 hours
+    # Every 2 hours (tune as you like)
     - cron: '0 */2 * * *'
   workflow_dispatch:
 
 jobs:
-  wake_apps:
+  wake_important_apps:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        group: [1, 2, 3]
 
     steps:
       - name: Checkout code
@@ -26,7 +23,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run wake script for group ${{ matrix.group }}
+      - name: Run wake script (important apps)
         run: |
-          echo "Running wake_apps.py for group ${{ matrix.group }}"
-          python wake_apps.py ${{ matrix.group }}
+          echo "Running wake_apps.py for IMPORTANT_APPS"
+          python wake_apps.py

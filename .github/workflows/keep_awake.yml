@@ -9,13 +9,16 @@ on:
 jobs:
   wake_important_apps:
     runs-on: ubuntu-latest
+    env:
+      # Opt in to Node 24 for JS-based actions (future-proofing)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 

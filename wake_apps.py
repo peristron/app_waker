@@ -1,4 +1,3 @@
-import sys
 import time
 import random
 from typing import List
@@ -10,57 +9,71 @@ from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-# -----------------------------
-# CONFIG: APP URLS (GROUPED)
-# -----------------------------
-# You can adjust groupings however you like. For now, let's split roughly
-# evenly across 3 groups. You can use more/less groups and update the
-# GitHub Actions matrix accordingly.
+# ----------------------------------
+# TIER 1: IMPORTANT APPS (ACTIVE)
+# ----------------------------------
+# These are the apps you care most about keeping warm.
+IMPORTANT_APPS: List[str] = [
+    # datahub_datasets_unified_explorer
+    "https://datasetsunifiedexplorer.streamlit.app",
 
-GROUPED_APPS = {
-    1: [
-        "https://csvexpl0rer.streamlit.app",
-        "https://csvsplittertool.streamlit.app",
-        "https://datasetexplorer.streamlit.app",
-        "https://datasetexplorerv2.streamlit.app",
-        "https://friendlyharanalyzer.streamlit.app",
-        "https://p0dcasterapp2.streamlit.app",
-        "https://physm0deller.streamlit.app",
-        "https://p0dcaster.streamlit.app",
-    ],
-    2: [
-        "https://exporterforrolesandpermissions.streamlit.app",
-        "https://os-scorm-inspector.streamlit.app",
-        "https://simplechartgenerator.streamlit.app",
-        "https://wordcloudandsentimentanalyzer.streamlit.app",
-        "https://wordcloudandsentimentanalyzer2.streamlit.app",
-        "https://datasetexpl0rerupgraded.streamlit.app",
-        "https://w0rdcl0udharvesterv4.streamlit.app",
-        "https://signalfoundry.streamlit.app",
-        "https://lineageanddependencieschecker.streamlit.app",
-    ],
-    3: [
-        "https://datasetsunifiedexplorer.streamlit.app",
-        "https://dataunifiedexplorer.streamlit.app",
-        "https://refreshcsvcomparisontool.streamlit.app",
-        "https://multillmchats.streamlit.app",
-        "https://geospatialimpactmonitor.streamlit.app",
-        "https://d2l-api-assistant.streamlit.app",
-        "https://jbsrch-app.streamlit.app",
-        "https://refact0redp0dcaster-2.streamlit.app",
-        "https://storytellerpoc.streamlit.app",
-        "https://scormifier.streamlit.app",
-    ],
-}
+    # datahub_unified_explorer
+    "https://dataunifiedexplorer.streamlit.app",
 
-# If you call the script without a group number, this fallback list is used.
-DEFAULT_APPS = [
-    url for group_urls in GROUPED_APPS.values() for url in group_urls
+    # jbsrch
+    "https://jbsrch-app.streamlit.app",
+
+    # refact0red_p0dcaster
+    "https://refact0redp0dcaster-2.streamlit.app",
+
+    # signalfoundry
+    "https://signalfoundry.streamlit.app",
+
+    # multi_llm_chat
+    "https://multillmchats.streamlit.app",
+
+    # roles_and_permissions_exporter
+    "https://exporterforrolesandpermissions.streamlit.app",
+
+    # scormifier
+    "https://scormifier.streamlit.app",
+
+    # story_teller_poc
+    "https://storytellerpoc.streamlit.app",
 ]
 
 
+# ----------------------------------
+# TIER 2: LOWER PRIORITY APPS (OPTIONAL)
+# ----------------------------------
+# These are currently ignored. You can:
+#  - keep them commented out, OR
+#  - uncomment and fold some into IMPORTANT_APPS (or create a second script).
+#
+# LOWER_PRIORITY_APPS: List[str] = [
+#     "https://csvexpl0rer.streamlit.app",
+#     "https://csvsplittertool.streamlit.app",
+#     "https://datasetexplorer.streamlit.app",
+#     "https://datasetexplorerv2.streamlit.app",
+#     "https://friendlyharanalyzer.streamlit.app",
+#     "https://p0dcasterapp2.streamlit.app",
+#     "https://physm0deller.streamlit.app",
+#     "https://p0dcaster.streamlit.app",
+#     "https://os-scorm-inspector.streamlit.app",
+#     "https://simplechartgenerator.streamlit.app",
+#     "https://wordcloudandsentimentanalyzer.streamlit.app",
+#     "https://wordcloudandsentimentanalyzer2.streamlit.app",
+#     "https://datasetexpl0rerupgraded.streamlit.app",
+#     "https://w0rdcl0udharvesterv4.streamlit.app",
+#     "https://lineageanddependencieschecker.streamlit.app",
+#     "https://refreshcsvcomparisontool.streamlit.app",
+#     "https://geospatialimpactmonitor.streamlit.app",
+#     "https://d2l-api-assistant.streamlit.app",
+# ]
+
+
 USER_AGENTS = [
-    # A few realistic Chrome user-agent strings on different OSes
+    # A few realistic UA strings
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 "
@@ -80,13 +93,11 @@ def get_driver() -> webdriver.Chrome:
 
     ua = random.choice(USER_AGENTS)
     chrome_options.add_argument(f"user-agent={ua}")
-
     print(f"[INFO] Using User-Agent: {ua}")
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    # Randomize viewport a bit
     width = random.randint(1024, 1600)
     height = random.randint(700, 1000)
     driver.set_window_size(width, height)
@@ -95,19 +106,9 @@ def get_driver() -> webdriver.Chrome:
     return driver
 
 
-def pick_app_subset(apps: List[str], max_per_run: int) -> List[str]:
-    """Randomly select up to max_per_run apps from the provided list."""
-    if max_per_run >= len(apps):
-        # If max_per_run is >= number of apps, we still shuffle them
-        random.shuffle(apps)
-        return apps
-    return random.sample(apps, k=max_per_run)
-
-
 def interact_with_page(driver: webdriver.Chrome):
     """Perform basic interactions to look more like a real user."""
     try:
-        # Simple scroll down then up
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(random.uniform(1, 3))
         driver.execute_script("window.scrollTo(0, 0);")
@@ -116,38 +117,27 @@ def interact_with_page(driver: webdriver.Chrome):
         print(f"[WARN] Interaction failed: {e}")
 
 
-def wake_up(app_group: int = None, max_apps_per_run: int = 10):
-    # Small random delay before starting to avoid exact cron alignment
+def wake_up(max_apps_per_run: int = 9):
+    # Initial random delay so the pattern isn't perfectly on the cron tick
     start_delay = random.uniform(5, 120)  # 5 seconds to 2 minutes
-    print(
-        f"[INFO] Starting wake_up with app_group={app_group}, "
-        f"max_apps_per_run={max_apps_per_run}"
-    )
+    print(f"[INFO] Starting wake_up for IMPORTANT_APPS ({len(IMPORTANT_APPS)} total).")
     print(f"[INFO] Initial random delay: {start_delay:.1f} seconds...")
     time.sleep(start_delay)
 
-    # Determine which apps we’re targeting this run
-    if app_group is not None and app_group in GROUPED_APPS:
-        apps = GROUPED_APPS[app_group][:]
-        print(f"[INFO] Using app group {app_group} with {len(apps)} apps.")
-    else:
-        apps = DEFAULT_APPS[:]
-        print(
-            f"[INFO] No valid app_group provided; using DEFAULT_APPS "
-            f"({len(apps)} apps)."
-        )
-
-    # Random subset selection
-    apps_to_visit = pick_app_subset(apps, max_apps_per_run)
-    total = len(apps_to_visit)
-    print(f"[INFO] Selected {total} apps to visit this run.")
-
-    if total == 0:
-        print("[WARN] No apps selected to visit. Exiting.")
+    if not IMPORTANT_APPS:
+        print("[WARN] IMPORTANT_APPS list is empty; nothing to do.")
         return
 
-    driver = None
+    # Random subset (for future-proofing), but by default touch all 9.
+    apps = IMPORTANT_APPS[:]
+    random.shuffle(apps)
+    if max_apps_per_run < len(apps):
+        apps = apps[:max_apps_per_run]
 
+    total = len(apps)
+    print(f"[INFO] Selected {total} important apps to visit this run.")
+
+    driver = None
     try:
         print("[INFO] Launching driver...")
         driver = get_driver()
@@ -156,11 +146,7 @@ def wake_up(app_group: int = None, max_apps_per_run: int = 10):
         print(f"[ERROR] Failed to start WebDriver: {e}")
         return
 
-    # Shuffle visiting order
-    random.shuffle(apps_to_visit)
-    print("[INFO] Visiting apps in random order.")
-
-    for i, url in enumerate(apps_to_visit, start=1):
+    for i, url in enumerate(apps, start=1):
         print(
             f"[INFO] [{i}/{total}] Visiting {url} at "
             f"{time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())} UTC"
@@ -168,19 +154,16 @@ def wake_up(app_group: int = None, max_apps_per_run: int = 10):
         try:
             driver.get(url)
 
-            # Wait for Streamlit to boot
             boot_wait = random.uniform(10, 20)
             print(f"[INFO] Waiting {boot_wait:.1f} seconds for app to boot...")
             time.sleep(boot_wait)
 
             print(f"[INFO] Page Title: {driver.title!r}")
-
-            # Basic interaction
             interact_with_page(driver)
 
         except Exception as e:
             print(f"[ERROR] Error visiting {url}: {e}")
-            # Attempt to recover driver once
+            # Try to recover driver once
             try:
                 print("[INFO] Attempting to restart driver...")
                 driver.quit()
@@ -193,12 +176,11 @@ def wake_up(app_group: int = None, max_apps_per_run: int = 10):
                 print(f"[ERROR] Failed to restart WebDriver: {inner}")
                 break
 
-        # Random short pause between apps
         pause = random.uniform(3, 10)
         print(f"[INFO] Sleeping {pause:.1f} seconds before next app...")
         time.sleep(pause)
 
-    print("[INFO] All selected apps visited. Closing browser.")
+    print("[INFO] Done visiting important apps. Closing browser.")
     try:
         driver.quit()
     except Exception:
@@ -206,14 +188,5 @@ def wake_up(app_group: int = None, max_apps_per_run: int = 10):
 
 
 if __name__ == "__main__":
-    # Optional CLI arg: group number
-    # Example: python wake_apps.py 2
-    group_arg = None
-    if len(sys.argv) > 1:
-        try:
-            group_arg = int(sys.argv[1])
-        except ValueError:
-            print(f"[WARN] Invalid group argument: {sys.argv[1]!r}; ignoring.")
-
-    # You can tune max_apps_per_run; 10 is a reasonable starting point
-    wake_up(app_group=group_arg, max_apps_per_run=10)
+    # You can tune max_apps_per_run; 9 equals "visit all important apps"
+    wake_up(max_apps_per_run=9)

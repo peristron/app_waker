@@ -2,13 +2,17 @@ name: Wake Streamlit Apps
 
 on:
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Every 2 hours
+    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 jobs:
   wake_apps:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        group: [1, 2, 3]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,5 +26,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run wake script
-        run: python wake_apps.py
+      - name: Run wake script for group ${{ matrix.group }}
+        run: |
+          echo "Running wake_apps.py for group ${{ matrix.group }}"
+          python wake_apps.py ${{ matrix.group }}

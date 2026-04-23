@@ -40,6 +40,9 @@ IMPORTANT_APPS: List[str] = [
 
     # story_teller_poc
     "https://storytellerpoc.streamlit.app",
+
+    # csvcomparison tool
+    "https://refreshcsvcomparisontool.streamlit.app"
 ]
 
 

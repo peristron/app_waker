@@ -42,7 +42,10 @@ IMPORTANT_APPS: List[str] = [
     "https://storytellerpoc.streamlit.app",
 
     # csvcomparison tool
-    "https://refreshcsvcomparisontool.streamlit.app"
+    "https://refreshcsvcomparisontool.streamlit.app",
+
+    #geospatial impact monitor, bulk IP geolocator
+    "https://geospatialimpactmonitor.streamlit.app"
 ]
 
 

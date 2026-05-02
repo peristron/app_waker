@@ -45,7 +45,10 @@ IMPORTANT_APPS: List[str] = [
     "https://refreshcsvcomparisontool.streamlit.app",
 
     #geospatial impact monitor, bulk IP geolocator
-    "https://geospatialimpactmonitor.streamlit.app"
+    "https://geospatialimpactmonitor.streamlit.app",
+
+    #V2 of signal foundry, optimized for maturity assessments
+    "https://signalfoundryv2.streamlit.app"
 ]
 
 

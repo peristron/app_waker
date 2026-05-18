@@ -38,9 +38,6 @@ IMPORTANT_APPS: List[str] = [
     # scormifier
     "https://scormifier.streamlit.app",
 
-    # story_teller_poc
-    "https://storytellerpoc.streamlit.app",
-
     # csvcomparison tool
     "https://refreshcsvcomparisontool.streamlit.app",
 
@@ -51,7 +48,7 @@ IMPORTANT_APPS: List[str] = [
     "https://signalfoundryv2.streamlit.app",
     
     #valence/brightpace apis app
-    https://d2l-api-assistant.streamlit.app
+    "https://d2l-api-assistant.streamlit.app"
 ]
 
 

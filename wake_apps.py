@@ -48,10 +48,10 @@ IMPORTANT_APPS: List[str] = [
     "https://geospatialimpactmonitor.streamlit.app",
 
     #V2 of signal foundry, optimized for maturity assessments
-    "https://signalfoundryv2.streamlit.app"
+    "https://signalfoundryv2.streamlit.app",
     
     #valence/brightpace apis app
-    https://d2l-api-assistant.streamlit.app/
+    https://d2l-api-assistant.streamlit.app
 ]
 
 

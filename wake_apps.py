@@ -48,7 +48,10 @@ IMPORTANT_APPS: List[str] = [
     "https://signalfoundryv2.streamlit.app",
     
     #valence/brightpace apis app
-    "https://d2l-api-assistant.streamlit.app"
+    "https://d2l-api-assistant.streamlit.app",
+
+    #refresh comparison tool
+    "https://refreshcsvcomparisontool.streamlit.app"
 ]
 
 

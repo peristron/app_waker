@@ -1,11 +1,11 @@
-import time
 import random
-from typing import List
+import time
+from typing import List, Optional
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import WebDriverException
 
 
 # ----------------------------------
@@ -78,7 +78,7 @@ def interact_with_page(driver: webdriver.Chrome) -> None:
         print(f"[WARN] Interaction failed: {exc}")
 
 
-def wake_up(max_apps_per_run: int | None = None) -> None:
+def wake_up(max_apps_per_run: Optional[int] = None) -> None:
     start_delay = random.uniform(5, 120)
     print(f"[INFO] Starting wake_up for IMPORTANT_APPS ({len(IMPORTANT_APPS)} total).")
     print(f"[INFO] Initial random delay: {start_delay:.1f} seconds...")

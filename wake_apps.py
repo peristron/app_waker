@@ -19,11 +19,11 @@ IMPORTANT_APPS: List[str] = [
     "https://signalfoundry.streamlit.app",
     "https://multillmchats.streamlit.app",
     "https://exporterforrolesandpermissions.streamlit.app",
-    "https://scormifier.streamlit.app",
+    "https://pocragb4data.streamlit.app",
     "https://refreshcsvcomparisontool.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
     "https://signalfoundryv2.streamlit.app",
-    "https://d2l-api-assistant.streamlit.app",
+    "https://d2l-api-assistant.streamlit.app"
 ]
 
 

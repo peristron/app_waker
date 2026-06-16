@@ -23,7 +23,8 @@ IMPORTANT_APPS: List[str] = [
     "https://refreshcsvcomparisontool.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
     "https://signalfoundryv2.streamlit.app",
-    "https://d2l-api-assistant.streamlit.app"
+    "https://d2l-api-assistant.streamlit.app",
+    "https://exporterforrolesandpermissions.streamlit.app"
 ]
 
 

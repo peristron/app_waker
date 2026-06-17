@@ -24,7 +24,8 @@ IMPORTANT_APPS: List[str] = [
     "https://geospatialimpactmonitor.streamlit.app",
     "https://signalfoundryv2.streamlit.app",
     "https://d2l-api-assistant.streamlit.app",
-    "https://exporterforrolesandpermissions.streamlit.app"
+    "https://exporterforrolesandpermissions.streamlit.app",
+    "https://coursenameupdater.streamlit.app"
 ]
 
 

@@ -25,7 +25,8 @@ IMPORTANT_APPS: List[str] = [
     "https://signalfoundryv2.streamlit.app",
     "https://d2l-api-assistant.streamlit.app",
     "https://exporterforrolesandpermissions.streamlit.app",
-    "https://coursenameupdater.streamlit.app"
+    "https://coursenameupdater.streamlit.app",
+    "https://bulkapirunner.streamlit.app"
 ]
 
 

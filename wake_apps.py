@@ -12,20 +12,14 @@ from selenium.webdriver.chrome.service import Service
 # TIER 1: IMPORTANT APPS (ACTIVE)
 # ----------------------------------
 IMPORTANT_APPS: List[str] = [
-    "https://datasetsunifiedexplorer.streamlit.app",
     "https://pocragb4datav2.streamlit.app",
-    "https://refreshcsvcomparisontoolv2.streamlit.app",
     "https://refact0redp0dcaster-2.streamlit.app",
     "https://signalfoundry.streamlit.app",
     "https://multillmchats.streamlit.app",
-    "https://exporterforrolesandpermissions.streamlit.app",
     "https://pocragb4data.streamlit.app",
-    "https://refreshcsvcomparisontool.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
     "https://signalfoundryv2.streamlit.app",
-    "https://d2l-api-assistant.streamlit.app",
     "https://exporterforrolesandpermissions.streamlit.app",
-    "https://coursenameupdater.streamlit.app",
     "https://bulkapirunner.streamlit.app"
 ]
 

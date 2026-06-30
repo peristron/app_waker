@@ -15,12 +15,17 @@ IMPORTANT_APPS: List[str] = [
     "https://pocragb4datav2.streamlit.app",
     "https://refact0redp0dcaster-2.streamlit.app",
     "https://signalfoundry.streamlit.app",
+    "https://signalfoundryv2.streamlit.app,
     "https://multillmchats.streamlit.app",
     "https://pocragb4data.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
     "https://signalfoundryv2.streamlit.app",
     "https://exporterforrolesandpermissions.streamlit.app",
-    "https://bulkapirunner.streamlit.app"
+    "https://bulkapirunner.streamlit.app",
+    "https://physm0deller.streamlit.app",
+    "https://storytellerpoc.streamlit.app",
+    "https://physm0d3113r.streamlit.app"
+
 ]
 
 

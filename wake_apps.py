@@ -22,7 +22,6 @@ IMPORTANT_APPS: List[str] = [
     "https://multillmchats.streamlit.app",
     "https://pocragb4data.streamlit.app",
     "https://geospatialimpactmonitor.streamlit.app",
-    "https://exporterforrolesandpermissions.streamlit.app",
     "https://bulkapirunner.streamlit.app",
     "https://physm0deller.streamlit.app",
     "https://storytellerpoc.streamlit.app",

@@ -29,7 +29,8 @@ IMPORTANT_APPS: List[str] = [
     "https://physm0d3113r.streamlit.app",
     "https://signalfoundryv3.streamlit.app",
     "https://liposter.streamlit.app",
-    "https://testchatpoc.streamlit.app"
+    "https://testchatpoc.streamlit.app",
+    "https://testqurade-n3x.streamlit.app"
 ]
 
 

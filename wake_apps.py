@@ -32,7 +32,8 @@ IMPORTANT_APPS: List[str] = [
     "https://testqurade-n3x.streamlit.app",
     "https://multitaskingd0wnsides.streamlit.app",
     "https://notificationsfatigue.streamlit.app",
-    "https://fra-maur0-research-viewer.streamlit.app"
+    "https://fra-maur0-research-viewer.streamlit.app",
+    "https://crawlr-p9c2mhkpwnbwph9aexxrqr.streamlit.app"
 ]
 
 
